@@ -16,6 +16,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt => {
 
 builder.Services.AddScoped<IWorkOrderRepository, WorkOrderRepository>();
 
+builder.Services.AddCors(opt => {
+    opt.AddPolicy("CorsPolicy",
+    builder => builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .WithExposedHeaders("Content-Disposition"));
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,6 +33,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 app.MapControllers();

@@ -1,5 +1,3 @@
-// WorkOrderRepository.cs
-
 using Microsoft.EntityFrameworkCore;
 using WorkOrderSystem.Core.Interfaces;
 using Models;
@@ -36,9 +34,10 @@ namespace WorkOrderSystem.Data
             return true;
         }
 
-        public async Task<WorkOrder> GetWorkOrderByIdAsync(int id)
+        public async Task<WorkOrder> GetWorkOrderByIdAsync(int Id)
         {
-            return await _context.WorkOrders.FindAsync(id);
+            return await _context.WorkOrders
+            .FindAsync(Id);
         }
 
         public async Task<IReadOnlyList<WorkOrder>> GetWorkOrdersAsync()
@@ -52,6 +51,7 @@ namespace WorkOrderSystem.Data
         {
             return await _context.WorkOrders
                 .Where(w => w.Status == status)
+                .Include(w => w.Technician)
                 .ToListAsync();
         }
 
@@ -59,6 +59,7 @@ namespace WorkOrderSystem.Data
         {
             return await _context.WorkOrders
                 .Where(w => w.TechnicianId == TechnicianId)
+                .Include(w => w.Technician)
                 .ToListAsync();
         }
 

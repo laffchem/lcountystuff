@@ -126,3 +126,4 @@
 /home/laff/Code/dotnet-project/WorkOrderSystem/obj/Debug/net8.0/WorkOrderSystem.pdb
 /home/laff/Code/dotnet-project/WorkOrderSystem/obj/Debug/net8.0/WorkOrderSystem.genruntimeconfig.cache
 /home/laff/Code/dotnet-project/WorkOrderSystem/obj/Debug/net8.0/ref/WorkOrderSystem.dll
+/home/laff/Code/dotnet-project/WorkOrderSystem/obj/Debug/net8.0/WorkOrderSystem.sourcelink.json

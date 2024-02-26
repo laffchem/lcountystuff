@@ -53,7 +53,7 @@ namespace MyApp.Namespace
         {
             var createdWorkOrder = await _workOrderRepository.CreateWorkOrderAsync(workOrder);
 
-            return CreatedAtAction(nameof(GetWorkOrderByIdAsync), new { createdWorkOrder.id }, createdWorkOrder);
+            return CreatedAtAction(nameof(GetWorkOrderByIdAsync), new { createdWorkOrder.Id }, createdWorkOrder);
         }
 
         [HttpPut("{id}")]
