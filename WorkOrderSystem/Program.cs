@@ -15,6 +15,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt => {
 });
 
 builder.Services.AddScoped<IWorkOrderRepository, WorkOrderRepository>();
+builder.Services.AddScoped<ITechnicianRepository, TechnicianRepository>();
+
 
 builder.Services.AddCors(opt => {
     opt.AddPolicy("CorsPolicy",
