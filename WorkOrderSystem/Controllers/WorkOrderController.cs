@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using WorkOrderSystem.Core.Interfaces;
+using WorkOrderSystem.Data.Dtos;
 using Models;
+
 
 namespace MyApp.Namespace
 {
@@ -49,11 +51,13 @@ namespace MyApp.Namespace
         }
         
         [HttpPost]
-        public async Task<ActionResult<WorkOrder>> CreateWorkOrder(WorkOrder workOrder)
+        public async Task<ActionResult<WorkOrder>> CreateWorkOrder(WorkOrderDto workOrderDto)
         {
-            var createdWorkOrder = await _workOrderRepository.CreateWorkOrderAsync(workOrder);
 
-            return CreatedAtAction(nameof(GetWorkOrderByIdAsync), new { createdWorkOrder.Id }, createdWorkOrder);
+
+            var createdWorkOrder = await _workOrderRepository.CreateWorkOrderAsync(workOrderDto);
+
+            return Ok(createdWorkOrder);
         }
 
         [HttpPut("{id}")]

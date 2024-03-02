@@ -6,8 +6,10 @@ namespace Models
     {   
         [Key]
         public int TechnicianId { get; set; }
-        public required string FirstName { get; set; }
-        public required string LastName { get; set; }
+        [Required]
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; }
     
     }
 }

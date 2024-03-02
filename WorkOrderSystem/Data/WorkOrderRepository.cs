@@ -1,23 +1,57 @@
 using Microsoft.EntityFrameworkCore;
 using WorkOrderSystem.Core.Interfaces;
 using Models;
+using WorkOrderSystem.Data.Dtos;
+
 
 namespace WorkOrderSystem.Data
 {
     public class WorkOrderRepository : IWorkOrderRepository
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<WorkOrderRepository> _logger;
 
-        public WorkOrderRepository(ApplicationDbContext context)
+
+        public WorkOrderRepository(ApplicationDbContext context, ILogger<WorkOrderRepository> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
-        public async Task<WorkOrder> CreateWorkOrderAsync(WorkOrder workOrder)
+        public async Task<WorkOrder> CreateWorkOrderAsync(WorkOrderDto workOrderDto)
         {
-            _context.WorkOrders.Add(workOrder);
-            await _context.SaveChangesAsync();
-            return workOrder;
+            try {
+
+            var technician = await _context.Technicians.FindAsync(workOrderDto.TechnicianId);
+
+    // Perform necessary validations and mapping here
+            var workOrder = new WorkOrder
+            {
+                Email = workOrderDto.Email,
+                ContactName = workOrderDto.ContactName,
+                ContactNumber = workOrderDto.ContactNumber,
+                Problem = workOrderDto.Problem,
+                DateReceived = workOrderDto.DateReceived,
+                DateAssigned = workOrderDto.DateAssigned,
+                DateComplete = workOrderDto.DateComplete,
+                Status = workOrderDto.Status,
+                TechnicianId = workOrderDto.TechnicianId,
+                
+            };
+
+                _context.WorkOrders.Add(workOrder);
+                await _context.SaveChangesAsync();
+
+                return workOrder;
+
+            }
+            catch (Exception ex)
+            {
+            _logger.LogError(ex, "Error creating WorkOrder");
+            throw; // Re-throw the exception to propagate it up the call stack
+            }
+
+
         }
 
         public async Task<bool> DeleteWorkOrderAsync(int id)

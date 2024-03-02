@@ -1,4 +1,5 @@
 using Models;
+using WorkOrderSystem.Data.Dtos;
 
 namespace WorkOrderSystem.Core.Interfaces
 {
@@ -9,7 +10,7 @@ namespace WorkOrderSystem.Core.Interfaces
         Task<IReadOnlyList<WorkOrder>> GetWorkOrdersByTechnicianIdAsync(int technicianId);
         Task<IReadOnlyList<WorkOrder>> GetWorkOrdersByStatusAsync(string status);
 
-        Task<WorkOrder> CreateWorkOrderAsync(WorkOrder workOrder);
+        Task<WorkOrder> CreateWorkOrderAsync(WorkOrderDto workOrderDto);
         Task<bool> UpdateWorkOrderAsync(int id, WorkOrder updatedWorkOrder);
         Task<bool> DeleteWorkOrderAsync(int id);
     }
