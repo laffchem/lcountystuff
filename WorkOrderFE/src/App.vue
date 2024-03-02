@@ -4,7 +4,7 @@
      <button @click="fetchTechnicians" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#submitModal">
 Create Work Order</button>
 
-     <Modal :technicians="technicians" />
+     <Modal :technicians="technicians" @workOrdersUpdated="updateWorkOrders"/>
      
     <div class="container mt-5">
       <label class="mr-2">Status:</label>
@@ -21,6 +21,7 @@ Create Work Order</button>
           <!-- <th>ID</th> -->
           <th>Email</th>
           <th>Contact Name</th>
+          <th>Contact Number</th>
           <th>Problem</th>
           <th>Date Received</th>
           <th>Status</th>
@@ -32,6 +33,7 @@ Create Work Order</button>
           <!-- <td>{{ order.id }}</td> -->
           <td>{{ order.email }}</td>
           <td>{{ order.contactName }}</td>
+          <td>{{ order.contactNumber }}</td>
           <td>{{ order.problem }}</td>
           <td>{{ order.dateReceived }}</td>
           <td>{{ order.status }}</td>
@@ -57,6 +59,7 @@ export default {
       status: 'Open',
       showModal: false,
       technicians: []
+      
     };
   },
   components: {
@@ -64,7 +67,6 @@ export default {
   },
   mounted() {
     this.fetchWorkOrdersByStatus();
-    this.createWorkOrder();
   },
   methods: {
     fetchWorkOrdersByStatus() {
@@ -84,7 +86,9 @@ export default {
           console.error('Error fetching technicians:', error);
         });
     },
-
+    updateWorkOrders(newWorkOrders) {
+      this.workOrders = newWorkOrders;
+    },
   },
 }
 </script>
